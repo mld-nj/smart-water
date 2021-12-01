@@ -1,0 +1,41 @@
+.loginContainer {
+  display: flex;
+  height: 100%;
+  //   width: 20%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  //   background: hotpink;
+  .formContainer {
+    width: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .login-form-wrapper {
+      width: 320px;
+    }
+    .login-form-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--color-text-1);
+      line-height: 32px;
+    }
+    .login-form-sub-title {
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--color-text-3);
+    }
+    .login-form-error-msg {
+      height: 32px;
+      line-height: 32px;
+      color: rgb(var(--red-6));
+    }
+    .login-form-password-actions {
+      display: flex;
+      justify-content: space-between;
+    }
+    .login-form-register-btn {
+      color: var(--color-text-3) !important;
+    }
+  }
+}
