@@ -1,0 +1,41 @@
+.registerContainer {
+  display: flex;
+  height: 100%;
+  //   width: 20%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  //   background: hotpink;
+  .formContainer {
+    width: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .register-form-wrapper {
+      width: 320px;
+    }
+    .register-form-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--color-text-1);
+      line-height: 32px;
+    }
+    .register-form-sub-title {
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--color-text-3);
+    }
+    .register-form-error-msg {
+      height: 32px;
+      line-height: 32px;
+      color: rgb(var(--red-6));
+    }
+    .register-form-password-actions {
+      display: flex;
+      justify-content: space-between;
+    }
+    .register-form-register-btn {
+      color: white !important;
+    }
+  }
+}

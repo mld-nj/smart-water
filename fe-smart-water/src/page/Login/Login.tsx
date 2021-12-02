@@ -46,7 +46,7 @@ const Login = () => {
       </Carousel>
       <div className="formContainer">
         <div className="login-form-wrapper">
-          <div className="login-form-title">登录 地下水数据管理平台</div>
+          <div className="login-form-title">登录 数据管理平台</div>
           {/* <div className="login-form-sub-title">登录 地下水数据管理平台</div> */}
           <div className="login-form-error-msg">{errorMessage}</div>
           <Form
