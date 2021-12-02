@@ -20,30 +20,29 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   return (
     <div className="loginContainer">
-      <Carousel
-        style={{
-          width: 600,
-          height: "100%",
-
-          background:
-            "linear-gradient(to top, #0A2A88, #59CDE9)" /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */,
-        }}
-        // autoPlay={true}
-        animation="fade"
-        indicatorType="line"
-        showArrow="hover"
-      >
-        {imageSrc.map((src, index) => (
-          <div key={index}>
-            <img
-              src={src}
-              style={{
-                width: "100%",
-              }}
-            />
-          </div>
-        ))}
-      </Carousel>
+      <div className="carouselContainer">
+        <Carousel
+          style={{
+            width: 600,
+            height: 600,
+          }}
+          // autoPlay={true}
+          animation="fade"
+          indicatorType="line"
+          showArrow="hover"
+        >
+          {imageSrc.map((src, index) => (
+            <div key={index}>
+              <img
+                src={src}
+                style={{
+                  width: "100%",
+                }}
+              />
+            </div>
+          ))}
+        </Carousel>
+      </div>
       <div className="formContainer">
         <div className="login-form-wrapper">
           <div className="login-form-title">登录 数据管理平台</div>

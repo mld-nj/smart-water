@@ -21,30 +21,32 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
   return (
     <div className="registerContainer">
-      <Carousel
-        style={{
-          width: 600,
-          height: "100%",
+      <div className="carouselContainer">
+        <Carousel
+          style={{
+            width: 600,
+            height: 600,
 
-          background:
-            "linear-gradient(to top, #0A2A88, #59CDE9)" /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */,
-        }}
-        // autoPlay={true}
-        animation="fade"
-        indicatorType="line"
-        showArrow="hover"
-      >
-        {imageSrc.map((src, index) => (
-          <div key={index}>
-            <img
-              src={src}
-              style={{
-                width: "100%",
-              }}
-            />
-          </div>
-        ))}
-      </Carousel>
+            background:
+              "linear-gradient(to top, #0A2A88, #59CDE9)" /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */,
+          }}
+          // autoPlay={true}
+          animation="fade"
+          indicatorType="line"
+          showArrow="hover"
+        >
+          {imageSrc.map((src, index) => (
+            <div key={index}>
+              <img
+                src={src}
+                style={{
+                  width: "100%",
+                }}
+              />
+            </div>
+          ))}
+        </Carousel>
+      </div>
       <div className="formContainer">
         <div className="register-form-wrapper">
           <div className="register-form-title">注册</div>
