@@ -7,6 +7,9 @@
   position: absolute;
   left: 0;
   top: 0;
+  .arco-carousel-indicator-wrapper {
+    background: none;
+  }
   .carouselContainer {
     display: flex;
     justify-content: center;

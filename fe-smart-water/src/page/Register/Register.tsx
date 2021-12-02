@@ -26,9 +26,6 @@ const Register = () => {
           style={{
             width: 600,
             height: 600,
-
-            background:
-              "linear-gradient(to top, #0A2A88, #59CDE9)" /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */,
           }}
           // autoPlay={true}
           animation="fade"
