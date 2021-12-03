@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const router = require("./router/index");
 const errHandler = require("./middleware/errHandler");
+require("./model/index");
 const app = express();
 //配置日志输出
 app.use(morgan("dev"));
