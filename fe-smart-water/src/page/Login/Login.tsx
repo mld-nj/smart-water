@@ -7,8 +7,12 @@ import {
   Checkbox,
   Carousel,
   Space,
+  Link,
+  Alert,
 } from "@arco-design/web-react";
 import { IconUser, IconLock } from "@arco-design/web-react/icon";
+import { login } from "../../api/user";
+import debounce from "../../utils/debounce";
 import "./Login.scss";
 const FormItem = Form.Item;
 const Login = () => {
@@ -17,9 +21,30 @@ const Login = () => {
     "https://z3.ax1x.com/2021/12/01/oYCuC9.png",
     "https://z3.ax1x.com/2021/12/01/oYC1u6.png",
   ];
-  const [errorMessage, setErrorMessage] = useState("");
+  const [user, setUser] = useState({ userName: "", password: "", email: "" });
+  const [errorMessage, setErrorMessage] = useState();
+  const [showTip, setShowTip] = useState(false);
+  const handleFormChange = (target: Object, value: any) => {
+    // console.log(target, value);
+    setUser(value);
+  };
+  const hanleSumbit = () => {
+    const { userName, password } = user;
+    login(userName, password).then((res) => {
+      res.data.token && localStorage.setItem("token", res.data.token);
+      setShowTip(true);
+      // window.location.href = "/";
+    });
+  };
   return (
     <div className="loginContainer">
+      {showTip ? (
+        <Alert
+          style={{ width: 200, position: "absolute", top: 20 }}
+          type="success"
+          content="登录成功"
+        ></Alert>
+      ) : null}
       <div className="carouselContainer">
         <Carousel
           style={{
@@ -52,6 +77,9 @@ const Login = () => {
             className="login-form"
             layout="vertical"
             // ref={formRef}
+            onValuesChange={(target, value) => {
+              debounce(handleFormChange, 500)(target, value);
+            }}
           >
             <Form.Item
               field="userName"
@@ -87,14 +115,18 @@ const Login = () => {
               <Button
                 type="primary"
                 long
-                // onClick={onSubmitClick}
+                onClick={hanleSumbit}
                 // loading={loading}
               >
                 登录
               </Button>
-              <Button type="text" long className="login-form-register-btn">
+              <Link
+                href="/register"
+                type="text"
+                className="login-form-register-btn"
+              >
                 注册账号
-              </Button>
+              </Link>
             </Space>
           </Form>
         </div>

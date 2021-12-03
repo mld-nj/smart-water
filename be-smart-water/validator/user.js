@@ -31,11 +31,11 @@ exports.login = [
   validator([
     body("user.username").notEmpty().withMessage("用户名不能为空"),
     body("user.password").notEmpty().withMessage("密码不能为空"),
-    body("user.email")
-      .notEmpty()
-      .withMessage("邮箱不能为空")
-      .isEmail()
-      .withMessage("邮箱格式不正确"),
+    // body("user.email")
+    //   .notEmpty()
+    //   .withMessage("邮箱不能为空")
+    //   .isEmail()
+    //   .withMessage("邮箱格式不正确"),
   ]),
   validator([
     body("user.username").custom(async (username, { req }) => {

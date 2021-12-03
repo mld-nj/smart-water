@@ -11,7 +11,7 @@ app.use(morgan("dev"));
 app.use(cors());
 //配置解析请求体
 app.use(express.json());
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 app.use("/api", router);
 app.use(errHandler());
 app.listen(PORT, () => {
