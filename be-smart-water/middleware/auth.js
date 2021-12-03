@@ -1,7 +1,7 @@
 const { verify } = require("../util/jwt");
 const { User } = require("../model/index");
 module.exports = async (req, res, next) => {
-  const token = req.get("toke") || null;
+  const token = req.get("token") || null;
   if (!token) {
     return res.status(401).send("token缺失").end();
   }

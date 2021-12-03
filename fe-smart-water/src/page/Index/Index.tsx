@@ -1,11 +1,13 @@
 import { useEffect, useCallback, useState } from "react";
 import Login from "../Login/Login";
-import Register from "../Register/Register";
+import { isLogin } from "../../api/user";
 const Index = () => {
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
   const [validToken, setValidToken] = useState(false);
   useEffect(() => {
-    //校验token
+    isLogin().then((res) => {
+      setValidToken(true);
+    });
   }, []);
   return validToken ? (
     <div className="indexContainer">
