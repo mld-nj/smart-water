@@ -38,8 +38,8 @@ exports.login = [
       .withMessage("邮箱格式不正确"),
   ]),
   validator([
-    body("user.username").custom((username, { req }) => {
-      const user = User.findOne({ username });
+    body("user.username").custom(async (username, { req }) => {
+      const user = await User.findOne({ username });
       if (!user) {
         return Promise.reject("用户不存在");
       }
@@ -47,7 +47,7 @@ exports.login = [
     }),
   ]),
   validator([
-    body("user.password").custom((password, { req }) => {
+    body("user.password").custom(async (password, { req }) => {
       if (md5(password) !== req.user.password) {
         return Promise.reject("密码错误");
       }
