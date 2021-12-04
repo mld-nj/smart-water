@@ -9,6 +9,7 @@ import {
   Space,
   Link,
   Alert,
+  Message,
 } from "@arco-design/web-react";
 import { IconUser, IconLock } from "@arco-design/web-react/icon";
 import { login } from "../../api/user";
@@ -23,7 +24,7 @@ const Login = () => {
   ];
   const [user, setUser] = useState({ userName: "", password: "", email: "" });
   const [errorMessage, setErrorMessage] = useState();
-  const [showTip, setShowTip] = useState(false);
+
   const handleFormChange = (target: Object, value: any) => {
     // console.log(target, value);
     setUser(value);
@@ -32,19 +33,13 @@ const Login = () => {
     const { userName, password } = user;
     login(userName, password).then((res) => {
       res.data.token && localStorage.setItem("token", res.data.token);
-      setShowTip(true);
-      // window.location.href = "/";
+      // setShowTip(true);
+      Message.success({ content: "登录成功" });
+      window.location.href = "/";
     });
   };
   return (
     <div className="loginContainer">
-      {showTip ? (
-        <Alert
-          style={{ width: 200, position: "absolute", top: 20 }}
-          type="success"
-          content="登录成功"
-        ></Alert>
-      ) : null}
       <div className="carouselContainer">
         <Carousel
           style={{

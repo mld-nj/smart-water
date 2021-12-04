@@ -18,6 +18,7 @@ const userSchema = new Schema({
   permission: {
     type: String,
     require: true,
+    default: 1,
   },
 });
 module.exports = userSchema;

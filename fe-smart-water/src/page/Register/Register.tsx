@@ -5,7 +5,7 @@ import {
   Button,
   Carousel,
   Space,
-  Checkbox,
+  Message,
   Alert,
 } from "@arco-design/web-react";
 import { IconUser, IconLock, IconEmail } from "@arco-design/web-react/icon";
@@ -21,7 +21,6 @@ const Register = () => {
   ];
   const [user, setUser] = useState({ userName: "", password: "", email: "" });
   const [errorMessage, setErrorMessage] = useState();
-  const [showTip, setShowTip] = useState(false);
   const handleFormChange = (target: Object, value: any) => {
     // console.log(target, value);
     setUser(value);
@@ -29,20 +28,13 @@ const Register = () => {
   const hanleSumbit = () => {
     const { userName, password, email } = user;
     register(userName, password, email).then((res) => {
-      setShowTip(true);
+      Message.success({ content: "注册成功" });
       window.location.href = "/";
     });
   };
 
   return (
     <div className="registerContainer">
-      {showTip ? (
-        <Alert
-          style={{ width: 200, position: "absolute", top: 20 }}
-          type="success"
-          content="注册成功"
-        ></Alert>
-      ) : null}
       <div className="carouselContainer">
         <Carousel
           style={{
