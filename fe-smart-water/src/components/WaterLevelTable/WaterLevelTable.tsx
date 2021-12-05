@@ -43,19 +43,19 @@ const WaterLevelTable = () => {
   const options = ["zk12", "zk7", "zk17", "zk2"];
   const onChangeTable = useCallback((pagination: any) => {
     const { current, pageSize } = pagination;
-    console.log(current);
     setPagination((pagination) => ({
       ...pagination,
       current,
       pageSize,
     }));
-    setLoading(false);
   }, []);
   useEffect(() => {
     const { current, pageSize } = pagination;
+    setLoading(true);
     getLevelData(current, pageSize).then((res) => {
       setData(res.data.datas);
       //   setPagination({ ...pagination, total: res.data.dataCount });
+      setLoading(false);
     });
   }, [pagination]);
   return (

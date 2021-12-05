@@ -26,20 +26,11 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState();
 
   const handleFormChange = (target: Object, value: any) => {
-    // console.log(target, value);
+    console.log(target, value);
     setUser(value);
   };
-  // const debounce1 = useCallback((func: Function, wait: number) => {
-  //   let timeout: any;
-  //   return (...args: any[]) => {
-  //     if (timeout) {
-  //       clearTimeout(timeout);
-  //     }
-  //     timeout = setTimeout(() => {
-  //       func.apply(this, args);
-  //     }, wait);
-  //   };
-  // }, []);
+
+  const deHandleFormChange = debounce(handleFormChange, 1000);
   const hanleSumbit = () => {
     const { userName, password } = user;
     login(userName, password).then((res) => {
@@ -84,7 +75,7 @@ const Login = () => {
             layout="vertical"
             // ref={formRef}
             onValuesChange={(target, value) => {
-              debounce(handleFormChange, 500)(target, value);
+              deHandleFormChange(target, value);
             }}
           >
             <Form.Item
