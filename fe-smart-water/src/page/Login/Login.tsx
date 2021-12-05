@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   Form,
   Input,
@@ -29,6 +29,17 @@ const Login = () => {
     // console.log(target, value);
     setUser(value);
   };
+  // const debounce1 = useCallback((func: Function, wait: number) => {
+  //   let timeout: any;
+  //   return (...args: any[]) => {
+  //     if (timeout) {
+  //       clearTimeout(timeout);
+  //     }
+  //     timeout = setTimeout(() => {
+  //       func.apply(this, args);
+  //     }, wait);
+  //   };
+  // }, []);
   const hanleSumbit = () => {
     const { userName, password } = user;
     login(userName, password).then((res) => {

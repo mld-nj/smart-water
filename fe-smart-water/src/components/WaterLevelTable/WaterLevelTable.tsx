@@ -30,13 +30,34 @@ const WaterLevelTable = () => {
     },
   ];
   const [data, setData] = useState([]);
+  const [pagination, setPagination] = useState({
+    sizeCanChange: true,
+    showTotal: true,
+    total: 96,
+    pageSize: 10,
+    current: 1,
+    pageSizeChangeResetCurrent: true,
+  });
+  const [loading, setLoading] = useState(false);
   const Option = Select.Option;
   const options = ["zk12", "zk7", "zk17", "zk2"];
-  useEffect(() => {
-    getLevelData().then((res) => {
-      setData(res.data.datas);
-    });
+  const onChangeTable = useCallback((pagination: any) => {
+    const { current, pageSize } = pagination;
+    console.log(current);
+    setPagination((pagination) => ({
+      ...pagination,
+      current,
+      pageSize,
+    }));
+    setLoading(false);
   }, []);
+  useEffect(() => {
+    const { current, pageSize } = pagination;
+    getLevelData(current, pageSize).then((res) => {
+      setData(res.data.datas);
+      //   setPagination({ ...pagination, total: res.data.dataCount });
+    });
+  }, [pagination]);
   return (
     <div className="tableContainer">
       <div className="filterContainer">
@@ -59,7 +80,7 @@ const WaterLevelTable = () => {
           placeholder="请输入温度"
         />
         <DatePicker style={{ width: 200 }} />
-        <Select placeholder="Please select" style={{ width: 200 }} allowClear>
+        <Select placeholder="选择水位计" style={{ width: 200 }} allowClear>
           {options.map((option, index) => (
             <Option key={option} value={option}>
               {option}
@@ -67,7 +88,13 @@ const WaterLevelTable = () => {
           ))}
         </Select>
       </div>
-      <Table columns={columns} data={data} />
+      <Table
+        columns={columns}
+        data={data}
+        pagination={pagination}
+        onChange={onChangeTable}
+        loading={loading}
+      />
     </div>
   );
 };

@@ -1,6 +1,12 @@
 import request from "./request";
-export const getLevelData = () => {
+export const getLevelData = (current = 1, pageSize = 10) => {
   return request.get("/waterLevel/data", {
-    "Content-Type": "application/json",
+    params: {
+      limit: pageSize,
+      page: current,
+    },
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 };
