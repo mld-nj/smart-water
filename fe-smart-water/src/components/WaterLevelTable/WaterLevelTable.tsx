@@ -30,6 +30,7 @@ const WaterLevelTable = () => {
     },
   ];
   const [data, setData] = useState([]);
+  const [filter, setFilter] = useState({});
   const [pagination, setPagination] = useState({
     sizeCanChange: true,
     showTotal: true,
@@ -49,15 +50,20 @@ const WaterLevelTable = () => {
       pageSize,
     }));
   }, []);
+  const handleSelect = (value: any) => {
+    setFilter((pre) => {
+      console.log(pre);
+      return { ...pre, name: value };
+    });
+  };
   useEffect(() => {
     const { current, pageSize } = pagination;
     setLoading(true);
-    getLevelData(current, pageSize).then((res) => {
+    getLevelData(current, pageSize, filter).then((res) => {
       setData(res.data.datas);
-      //   setPagination({ ...pagination, total: res.data.dataCount });
       setLoading(false);
     });
-  }, [pagination]);
+  }, [pagination, filter]);
   return (
     <div className="tableContainer">
       <div className="filterContainer">
@@ -80,7 +86,14 @@ const WaterLevelTable = () => {
           placeholder="请输入温度"
         />
         <DatePicker style={{ width: 200 }} />
-        <Select placeholder="选择水位计" style={{ width: 200 }} allowClear>
+        <Select
+          placeholder="选择水位计"
+          style={{ width: 200 }}
+          allowClear
+          onChange={(value) => {
+            handleSelect(value);
+          }}
+        >
           {options.map((option, index) => (
             <Option key={option} value={option}>
               {option}
