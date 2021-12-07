@@ -1,5 +1,6 @@
 import { useCallback, useState, useEffect } from "react";
 import { Table, Select, Input, DatePicker } from "@arco-design/web-react";
+import debounce from "../../utils/debounce";
 import { getLevelData } from "../../api/waterLevel";
 import "./Table.scss";
 const WaterLevelTable = () => {
@@ -34,11 +35,11 @@ const WaterLevelTable = () => {
   const [pagination, setPagination] = useState({
     sizeCanChange: true,
     showTotal: true,
-    total: 96,
     pageSize: 10,
     current: 1,
     pageSizeChangeResetCurrent: true,
   });
+  const [total, setTotal] = useState();
   const [loading, setLoading] = useState(false);
   const Option = Select.Option;
   const options = ["zk12", "zk7", "zk17", "zk2"];
@@ -50,17 +51,32 @@ const WaterLevelTable = () => {
       pageSize,
     }));
   }, []);
-  const handleSelect = (value: any) => {
+  const handlePicker = useCallback((value) => {
     setFilter((pre) => {
-      console.log(pre);
+      return { ...pre, date: value };
+    });
+  }, []);
+  const handleSelect = useCallback((value: any) => {
+    setFilter((pre) => {
       return { ...pre, name: value };
     });
-  };
+  }, []);
+  const handleInput = useCallback((value: any, e: any) => {
+    const property = e.target.name;
+    setFilter((pre) => {
+      return { ...pre, [property]: value };
+    });
+  }, []);
+  const dbHandleInput = debounce(handleInput, 1000);
   useEffect(() => {
     const { current, pageSize } = pagination;
     setLoading(true);
     getLevelData(current, pageSize, filter).then((res) => {
+      res.data.datas.map((current: any) => {
+        current["date"] = current["date"].slice(0, 10);
+      });
       setData(res.data.datas);
+      setTotal(res.data.dataCount);
       setLoading(false);
     });
   }, [pagination, filter]);
@@ -72,20 +88,32 @@ const WaterLevelTable = () => {
           allowClear
           addBefore="时刻"
           placeholder="请输入时刻"
+          name="time"
+          onChange={(value, e) => {
+            dbHandleInput(value, e);
+          }}
         />
         <Input
           style={{ width: 200 }}
           allowClear
           addBefore="水位"
           placeholder="请输入水位"
+          name="level"
+          onChange={(value, e) => {
+            dbHandleInput(value, e);
+          }}
         />
         <Input
           style={{ width: 200 }}
           allowClear
           addBefore="温度"
           placeholder="请输入温度"
+          name="temperature"
+          onChange={(value, e) => {
+            dbHandleInput(value, e);
+          }}
         />
-        <DatePicker style={{ width: 200 }} />
+        <DatePicker style={{ width: 200 }} onChange={handlePicker} />
         <Select
           placeholder="选择水位计"
           style={{ width: 200 }}
@@ -104,7 +132,7 @@ const WaterLevelTable = () => {
       <Table
         columns={columns}
         data={data}
-        pagination={pagination}
+        pagination={{ ...pagination, total }}
         onChange={onChangeTable}
         loading={loading}
       />
