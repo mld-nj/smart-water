@@ -1,5 +1,11 @@
 import { useCallback, useState, useEffect } from "react";
-import { Table, Select, Input, DatePicker } from "@arco-design/web-react";
+import {
+  Table,
+  Select,
+  Input,
+  DatePicker,
+  TimePicker,
+} from "@arco-design/web-react";
 import debounce from "../../utils/debounce";
 import { getLevelData } from "../../api/waterLevel";
 import "./Table.scss";
@@ -51,9 +57,14 @@ const WaterLevelTable = () => {
       pageSize,
     }));
   }, []);
-  const handlePicker = useCallback((value) => {
+  const handleDatePicker = useCallback((value) => {
     setFilter((pre) => {
       return { ...pre, date: value };
+    });
+  }, []);
+  const handleTimePicker = useCallback((value) => {
+    setFilter((pre) => {
+      return { ...pre, time: value };
     });
   }, []);
   const handleSelect = useCallback((value: any) => {
@@ -83,15 +94,11 @@ const WaterLevelTable = () => {
   return (
     <div className="tableContainer">
       <div className="filterContainer">
-        <Input
-          style={{ width: 200 }}
-          allowClear
-          addBefore="时刻"
-          placeholder="请输入时刻"
-          name="time"
-          onChange={(value, e) => {
-            dbHandleInput(value, e);
+        <TimePicker
+          onChange={(value) => {
+            handleTimePicker(value);
           }}
+          style={{ width: 200 }}
         />
         <Input
           style={{ width: 200 }}
@@ -113,7 +120,7 @@ const WaterLevelTable = () => {
             dbHandleInput(value, e);
           }}
         />
-        <DatePicker style={{ width: 200 }} onChange={handlePicker} />
+        <DatePicker style={{ width: 200 }} onChange={handleDatePicker} />
         <Select
           placeholder="选择水位计"
           style={{ width: 200 }}
